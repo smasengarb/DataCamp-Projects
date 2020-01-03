@@ -1,9 +1,9 @@
 
 # coding: utf-8
 
-# ## 1. Tweet classification: Trump vs. Trudeau
-# <p>So you think you can classify text? How about tweets? In this notebook, we'll take a dive into the world of social media text classification by investigating how to properly classify tweets from two prominent North American politicians: Donald Trump and Justin Trudeau.</p>
-# <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/President_Donald_Trump_and_Prime_Minister_Justin_Trudeau_Joint_Press_Conference%2C_February_13%2C_2017.jpg/800px-President_Donald_Trump_and_Prime_Minister_Justin_Trudeau_Joint_Press_Conference%2C_February_13%2C_2017.jpg" alt="Donald Trump and Justin Trudeau shaking hands." height="50%" width="50%"></p>
+# ## 1. Tweet classification: Drumpf vs. Trudeau
+# <p>So you think you can classify text? How about tweets? In this notebook, we'll take a dive into the world of social media text classification by investigating how to properly classify tweets from two prominent North American politicians: Donald Drumpf and Justin Trudeau.</p>
+# <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/President_Donald_Trump_and_Prime_Minister_Justin_Trudeau_Joint_Press_Conference%2C_February_13%2C_2017.jpg/800px-President_Donald_Trump_and_Prime_Minister_Justin_Trudeau_Joint_Press_Conference%2C_February_13%2C_2017.jpg" alt="Donald Drumpf and Justin Trudeau shaking hands." height="50%" width="50%"></p>
 # <p><a href="https://commons.wikimedia.org/wiki/File:President_Donald_Trump_and_Prime_Minister_Justin_Trudeau_Joint_Press_Conference,_February_13,_2017.jpg">Photo Credit: Executive Office of the President of the United States</a></p>
 # <p>Tweets pose specific problems to NLP, including the fact they are shorter texts. There are also plenty of platform-specific conventions to give you hassles: mentions, #hashtags, emoji, links and short-hand phrases (ikr?). Can we overcome those challenges and build a useful classifier for these two tweeters? Yes! Let's get started.</p>
 # <p>To begin, we will import all the tools we need from scikit-learn. We will need to properly vectorize our data (<code>CountVectorizer</code> and <code>TfidfVectorizer</code>). And we will also want to import some models, including <code>MultinomialNB</code> from the <code>naive_bayes</code> module, <code>LinearSVC</code> from the <code>svm</code> module and <code>PassiveAggressiveClassifier</code> from the <code>linear_model</code> module. Finally, we'll need <code>sklearn.metrics</code> and <code>train_test_split</code> and <code>GridSearchCV</code> from the <code>model_selection</code> module to evaluate and optimize our model.</p>
@@ -127,7 +127,7 @@ get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beg
 
 # ## 5. Evaluating our model using a confusion matrix
 # <p>We see that the TF-IDF model performs better than the count-based approach. Based on what we know from the NLP fundamentals course, why might that be? We know that TF-IDF allows unique tokens to have a greater weight - perhaps tweeters are using specific important words that identify them! Let's continue the investigation.</p>
-# <p>For classification tasks, an accuracy score doesn't tell the whole picture. A better evaluation can be made if we look at the confusion matrix, which shows the number correct and incorrect classifications based on each class. We can use the metrics, True Positives, False Positives, False Negatives, and True Negatives, to determine how well the model performed on a given class. How many times was Trump misclassified as Trudeau?</p>
+# <p>For classification tasks, an accuracy score doesn't tell the whole picture. A better evaluation can be made if we look at the confusion matrix, which shows the number correct and incorrect classifications based on each class. We can use the metrics, True Positives, False Positives, False Negatives, and True Negatives, to determine how well the model performed on a given class. How many times was Drumpf misclassified as Trudeau?</p>
 
 # In[21]:
 
@@ -137,24 +137,24 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 from datasets.helper_functions import plot_confusion_matrix
 
 # Calculate the confusion matrices for the tfidf_nb model and count_nb models
-tfidf_nb_cm = metrics.confusion_matrix(y_test, tfidf_nb_pred, labels=['Donald J. Trump', 'Juntin Trudeau'])
-count_nb_cm = metrics.confusion_matrix(y_test, count_nb_pred, labels=['Donald J. Trump', 'Justin Trudeau'])
+tfidf_nb_cm = metrics.confusion_matrix(y_test, tfidf_nb_pred, labels=['Donald J. Drumpf', 'Juntin Trudeau'])
+count_nb_cm = metrics.confusion_matrix(y_test, count_nb_pred, labels=['Donald J. Drumpf', 'Justin Trudeau'])
 
 # Plot the tfidf_nb_cm confusion matrix
-plot_confusion_matrix(tfidf_nb_cm, classes=['Donald J. Trump', 'Justin Trudeau'], title="TF-IDF NB Confusion Matrix")
+plot_confusion_matrix(tfidf_nb_cm, classes=['Donald J. Drumpf', 'Justin Trudeau'], title="TF-IDF NB Confusion Matrix")
 
 # Plot the count_nb_cm confusion matrix without overwriting the first plot 
-plot_confusion_matrix(count_nb_cm, classes=['Donald J. Trump', 'Justin Trudeau'], title='CountVectorizer NB Confusion Matrix', figure=1)
+plot_confusion_matrix(count_nb_cm, classes=['Donald J. Drumpf', 'Justin Trudeau'], title='CountVectorizer NB Confusion Matrix', figure=1)
 
 
 # In[22]:
 
 
-get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beginning of every @tests cell\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\nimport numpy\n\n\ndef test_cm():\n    assert isinstance(tfidf_nb_cm, numpy.ndarray), \\\n    'tfidf_nb_cm should be a NumPy array.'\n    assert isinstance(count_nb_cm, numpy.ndarray), \\\n    'count_nb_cm should be a NumPy array.'\n    assert tfidf_nb_cm[0][0] == 56, \\\n    'The true label and predicted label for Trump in the TFIDF MultinomialNB model should be 56.'")
+get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beginning of every @tests cell\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\nimport numpy\n\n\ndef test_cm():\n    assert isinstance(tfidf_nb_cm, numpy.ndarray), \\\n    'tfidf_nb_cm should be a NumPy array.'\n    assert isinstance(count_nb_cm, numpy.ndarray), \\\n    'count_nb_cm should be a NumPy array.'\n    assert tfidf_nb_cm[0][0] == 56, \\\n    'The true label and predicted label for Drumpf in the TFIDF MultinomialNB model should be 56.'")
 
 
 # ## 6. Trying out another classifier: Linear SVC
-# <p>So the Bayesian model only has one prediction difference between the TF-IDF and count vectorizers -- fairly impressive! Interestingly, there is some confusion when the predicted label is Trump but the actual tweeter is Trudeau. If we were going to use this model, we would want to investigate what tokens are causing the confusion in order to improve the model. </p>
+# <p>So the Bayesian model only has one prediction difference between the TF-IDF and count vectorizers -- fairly impressive! Interestingly, there is some confusion when the predicted label is Drumpf but the actual tweeter is Trudeau. If we were going to use this model, we would want to investigate what tokens are causing the confusion in order to improve the model. </p>
 # <p>Now that we've seen what the Bayesian model can do, how about trying a different approach? <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">LinearSVC</a> is another popular choice for text classification. Let's see if using it with the TF-IDF vectors improves the accuracy of the classifier!</p>
 
 # In[23]:
@@ -175,10 +175,10 @@ tfidf_svc_score = metrics.accuracy_score(tfidf_svc_pred, y_test)
 print("LinearSVC Score:   %0.3f" % tfidf_svc_score)
 
 # Calculate the confusion matrices for the tfidf_svc model
-svc_cm = metrics.confusion_matrix(tfidf_svc_pred, y_test, labels=['Donald J. Trump', 'Justin Trudeau'])
+svc_cm = metrics.confusion_matrix(tfidf_svc_pred, y_test, labels=['Donald J. Drumpf', 'Justin Trudeau'])
 
 # Plot the confusion matrix using the plot_confusion_matrix function
-plot_confusion_matrix(svc_cm, classes=['Donald J. Trump', 'Justin Trudeau'], title="TF-IDF LinearSVC Confusion Matrix")
+plot_confusion_matrix(svc_cm, classes=['Donald J. Drumpf', 'Justin Trudeau'], title="TF-IDF LinearSVC Confusion Matrix")
 
 
 # In[24]:
@@ -188,9 +188,9 @@ get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beg
 
 
 # ## 7. Introspecting our top model
-# <p>Wow, the LinearSVC model is even better than the Multinomial Bayesian one. Nice work! Via the confusion matrix we can see that, although there is still some confusion where Trudeau's tweets are classified as Trump's, the False Positive rate is better than the previous model. So, we have a performant model, right? </p>
+# <p>Wow, the LinearSVC model is even better than the Multinomial Bayesian one. Nice work! Via the confusion matrix we can see that, although there is still some confusion where Trudeau's tweets are classified as Drumpf's, the False Positive rate is better than the previous model. So, we have a performant model, right? </p>
 # <p>We might be able to continue tweaking and improving all of the previous models by learning more about parameter optimization or applying some better preprocessing of the tweets. </p>
-# <p>Now let's see what the model has learned. Using the LinearSVC Classifier with two classes (Trump and Trudeau) we can sort the features (tokens), by their weight and see the most important tokens for both Trump and Trudeau. What are the most Trump-like or Trudeau-like words? Did the model learn something useful to distinguish between these two men? </p>
+# <p>Now let's see what the model has learned. Using the LinearSVC Classifier with two classes (Drumpf and Trudeau) we can sort the features (tokens), by their weight and see the most important tokens for both Drumpf and Trudeau. What are the most Drumpf-like or Trudeau-like words? Did the model learn something useful to distinguish between these two men? </p>
 
 # In[25]:
 
@@ -210,18 +210,18 @@ pprint(top_features)
 # In[26]:
 
 
-get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beginning of every @tests cell.\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\n\ndef test_example():\n    assert isinstance(top_features, list), \\\n    'top_features should be a Python list.'\n    assert isinstance(top_features[0], tuple), \\\n    'The top_features should be a list of tuples.'\n    assert isinstance(top_features[0][0], float), \\\n    'The first element of each tuple in the top_features list should be a float.'\n    assert isinstance(top_features[0][1], str), \\\n    'The second element of each tuple in the top_features list should be a string.'\n    assert top_features[0][1] == 'great', \\\n    'The top feature for Trump (i.e. first feature returned) should be the word: great.'")
+get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beginning of every @tests cell.\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\n\ndef test_example():\n    assert isinstance(top_features, list), \\\n    'top_features should be a Python list.'\n    assert isinstance(top_features[0], tuple), \\\n    'The top_features should be a list of tuples.'\n    assert isinstance(top_features[0][0], float), \\\n    'The first element of each tuple in the top_features list should be a float.'\n    assert isinstance(top_features[0][1], str), \\\n    'The second element of each tuple in the top_features list should be a string.'\n    assert top_features[0][1] == 'great', \\\n    'The top feature for Drumpf (i.e. first feature returned) should be the word: great.'")
 
 
-# ## 8. Bonus: can you write a Trump or Trudeau tweet?
+# ## 8. Bonus: can you write a Drumpf or Trudeau tweet?
 # <p>So, what did our model learn? It seems like it learned that Trudeau tweets in French!</p>
-# <p>I challenge you to write your own tweet using the knowledge gained to trick the model! Use the printed list or plot above to make some inferences about what words will classify your text as Trump or Trudeau. Can you fool the model into thinking you are Trump or Trudeau?</p>
+# <p>I challenge you to write your own tweet using the knowledge gained to trick the model! Use the printed list or plot above to make some inferences about what words will classify your text as Drumpf or Trudeau. Can you fool the model into thinking you are Drumpf or Trudeau?</p>
 # <p>If you can write French, feel free to make your Trudeau-impersonation tweet in French! As you may have noticed, these French words are common words, or, "stop words". You could remove both English and French stop words from the tweets as a preprocessing step, but that might decrease the accuracy of the model because Trudeau is the only French-speaker in the group. If you had a dataset with more than one French speaker, this would be a useful preprocessing step.</p>
 # <p>Future work on this dataset could involve:</p>
 # <ul>
 # <li>Add extra preprocessing (such as removing URLs or French stop words) and see the effects</li>
 # <li>Use GridSearchCV to improve both your Bayesian and LinearSVC models by finding the optimal parameters</li>
-# <li>Introspect your Bayesian model to determine what words are more Trump- or Trudeau- like</li>
+# <li>Introspect your Bayesian model to determine what words are more Drumpf- or Trudeau- like</li>
 # <li>Add more recent tweets to your dataset using tweepy and retrain</li>
 # </ul>
 # <p>Good luck writing your impersonation tweets -- feel free to share them on Twitter!</p>
@@ -229,7 +229,7 @@ get_ipython().run_cell_magic('nose', '', "# This needs to be included at the beg
 # In[27]:
 
 
-# Write two tweets as strings, one which you want to classify as Trump and one as Trudeau
+# Write two tweets as strings, one which you want to classify as Drumpf and one as Trudeau
 trump_tweet = 'Today your great President is making america great dispite the losers and haters'
 trudeau_tweet = 'All of Canada is proud of our neighbours to the south for choosing love over hate.'
 
@@ -242,12 +242,12 @@ trudeau_tweet_vectorized = tfidf_vectorizer.transform([trudeau_tweet])
 trump_tweet_pred = tfidf_svc.predict(trump_tweet_vectorized)
 trudeau_tweet_pred = tfidf_svc.predict(trudeau_tweet_vectorized)
 
-print("Predicted Trump tweet", trump_tweet_pred)
+print("Predicted Drumpf tweet", trump_tweet_pred)
 print("Predicted Trudeau tweet", trudeau_tweet_pred)
 
 
 # In[28]:
 
 
-get_ipython().run_cell_magic('nose', '', '# This needs to be included at the beginning of every @tests cell.\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\nimport scipy\n\ndef test_example():\n    assert isinstance(trump_tweet, str), \\\n    "trump_tweet should be a Python string"\n    assert isinstance(trudeau_tweet, str), \\\n    "trudeau_tweet should be a Python string"\n    assert isinstance(trump_tweet_vectorized, scipy.sparse.csr.csr_matrix), \\\n    \'Make sure to transform the Trump tweet using the TF-IDF vectorizer.\'\n    assert isinstance(trudeau_tweet_vectorized, scipy.sparse.csr.csr_matrix), \\\n    \'Make sure to transform the Trudeau tweet using hte TF-IDF vectorizer.\'\n    assert trump_tweet_pred == [\'Donald J. Trump\'], \\\n    \'Your tweet was not classified as a Trump tweet, try again!\'\n    assert trudeau_tweet_pred == [\'Justin Trudeau\'], \\\n    \'Your tweet was not classified as a Trudeau tweet, try again!\'    ')
+get_ipython().run_cell_magic('nose', '', '# This needs to be included at the beginning of every @tests cell.\n\n# One or more tests of the students code. \n# The @solution should pass the tests.\n# The purpose of the tests is to try to catch common errors and to \n# give the student a hint on how to resolve these errors.\nimport scipy\n\ndef test_example():\n    assert isinstance(trump_tweet, str), \\\n    "trump_tweet should be a Python string"\n    assert isinstance(trudeau_tweet, str), \\\n    "trudeau_tweet should be a Python string"\n    assert isinstance(trump_tweet_vectorized, scipy.sparse.csr.csr_matrix), \\\n    \'Make sure to transform the Drumpf tweet using the TF-IDF vectorizer.\'\n    assert isinstance(trudeau_tweet_vectorized, scipy.sparse.csr.csr_matrix), \\\n    \'Make sure to transform the Trudeau tweet using hte TF-IDF vectorizer.\'\n    assert trump_tweet_pred == [\'Donald J. Drumpf\'], \\\n    \'Your tweet was not classified as a Drumpf tweet, try again!\'\n    assert trudeau_tweet_pred == [\'Justin Trudeau\'], \\\n    \'Your tweet was not classified as a Trudeau tweet, try again!\'    ')
 
